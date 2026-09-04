@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart Factory Command Center</title>
-    <link rel="stylesheet" href="style.css?v=20260904132545">
+    <link rel="stylesheet" href="style.css?v=20260904132801">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
 </head>
 <body>
@@ -15,6 +15,34 @@
             <span id="last-update" class="last-update">Last Update: --:--:--</span>
         </div>
     </header>
+
+    <section class="settings-panel">
+        <div class="settings-header">
+            <h2>Settings & Storage</h2>
+            <button id="clear-storage-btn" class="ctrl-btn ctrl-estop" style="width:auto;padding:0.4rem 0.8rem">CLEAR ALL STORED DATA</button>
+        </div>
+        <div class="settings-grid">
+            <div class="setting-item">
+                <label>Simulation Speed</label>
+                <select id="setting-sim-speed" class="floor-select">
+                    <option value="1">1x</option>
+                    <option value="2">2x</option>
+                    <option value="5">5x</option>
+                    <option value="10">10x</option>
+                </select>
+            </div>
+            <div class="setting-item">
+                <label><input type="checkbox" id="setting-auto-stop"> Auto-Stop on Critical Temp</label>
+            </div>
+            <div class="setting-item">
+                <label><input type="checkbox" id="setting-auto-reassign"> Auto-Reassign on Failure</label>
+            </div>
+            <div class="setting-item">
+                <label><input type="checkbox" id="setting-emergency-isolation"> Emergency Line Isolation</label>
+            </div>
+        </div>
+        <div id="storage-status" class="storage-status">IndexedDB: initializing...</div>
+    </section>
 
     <section class="kpi-grid">
         <div class="kpi-card"><span class="kpi-label">Total Machines</span><span id="kpi-total" class="kpi-value">0</span></div>
@@ -158,26 +186,26 @@
         </div>
     </div>
 
-    <script src="js/config.js?v=20260904132545"></script>
-    <script src="js/factory.js?v=20260904132545"></script>
-    <script src="js/machine.js?v=20260904132545"></script>
-    <script src="js/simulator.js?v=20260904132545"></script>
-    <script src="js/state.js?v=20260904132545"></script>
-    <script src="js/factoryFloor.js?v=20260904132545"></script>
-    <script src="js/events.js?v=20260904132545"></script>
-    <script src="js/controller.js?v=20260904132545"></script>
-    <script src="js/alerts.js?v=20260904132545"></script>
-    <script src="js/incidents.js?v=20260904132545"></script>
-    <script src="js/maintenance.js?v=20260904132545"></script>
-    <script src="js/automation.js?v=20260904132545"></script>
-    <script src="js/allocation.js?v=20260904132545"></script>
-    <script src="js/production.js?v=20260904132545"></script>
-    <script src="js/ai.js?v=20260904132545"></script>
-    <script src="js/analytics.js?v=20260904132545"></script>
-    <script src="js/storage.js?v=20260904132545"></script>
-    <script src="js/permissions.js?v=20260904132545"></script>
-    <script src="js/audit.js?v=20260904132545"></script>
-    <script src="js/machineDetail.js?v=20260904132545"></script>
-    <script src="js/app.js?v=20260904132545"></script>
+    <script src="js/config.js?v=20260904132801"></script>
+    <script src="js/factory.js?v=20260904132801"></script>
+    <script src="js/machine.js?v=20260904132801"></script>
+    <script src="js/simulator.js?v=20260904132801"></script>
+    <script src="js/state.js?v=20260904132801"></script>
+    <script src="js/factoryFloor.js?v=20260904132801"></script>
+    <script src="js/events.js?v=20260904132801"></script>
+    <script src="js/controller.js?v=20260904132801"></script>
+    <script src="js/alerts.js?v=20260904132801"></script>
+    <script src="js/incidents.js?v=20260904132801"></script>
+    <script src="js/maintenance.js?v=20260904132801"></script>
+    <script src="js/automation.js?v=20260904132801"></script>
+    <script src="js/allocation.js?v=20260904132801"></script>
+    <script src="js/production.js?v=20260904132801"></script>
+    <script src="js/ai.js?v=20260904132801"></script>
+    <script src="js/analytics.js?v=20260904132801"></script>
+    <script src="js/storage.js?v=20260904132801"></script>
+    <script src="js/permissions.js?v=20260904132801"></script>
+    <script src="js/audit.js?v=20260904132801"></script>
+    <script src="js/machineDetail.js?v=20260904132801"></script>
+    <script src="js/app.js?v=20260904132801"></script>
 </body>
 </html>

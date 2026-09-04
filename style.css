@@ -522,3 +522,17 @@ body {
 .chart-box { background: #0d1117; border: 1px solid #21262d; border-radius: 8px; padding: 0.8rem; height: 220px; }
 .chart-box h3 { font-size: 0.8rem; color: #8b949e; margin-bottom: 0.5rem; font-weight: normal; }
 .chart-box canvas { max-height: 170px; }
+
+.settings-panel {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 2rem;
+}
+.settings-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.8rem; margin-bottom: 1rem; }
+.settings-header h2 { font-size: 1.1rem; }
+.settings-grid { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+.setting-item { display: flex; flex-direction: column; gap: 0.3rem; font-size: 0.82rem; color: #c9d1d9; }
+.setting-item label { display: flex; align-items: center; gap: 0.4rem; }
+.storage-status { font-size: 0.75rem; color: #8b949e; font-family: 'Consolas', monospace; }
