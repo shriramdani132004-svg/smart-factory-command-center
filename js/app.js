@@ -1,4 +1,4 @@
-﻿// app.js - consolidated (Phase 5-14)
+﻿// app.js - consolidated (Phase 5-15)
 
 let simulationInterval = null;
 let tickCount = 0;
@@ -143,6 +143,10 @@ function initApp() {
 
     safeInit('predictiveInit', () => {
         if (typeof renderPredictivePanel === 'function') renderPredictivePanel(MACHINES);
+    });
+
+    safeInit('maintenanceInit', () => {
+        if (typeof renderMaintenancePanel === 'function') renderMaintenancePanel();
     });
 
     simulationInterval = startSimulation(MACHINES, onSimulationTick);
