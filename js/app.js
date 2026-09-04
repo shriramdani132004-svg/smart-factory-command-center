@@ -25,7 +25,7 @@ function renderKPIs(state) {
         document.getElementById('kpi-efficiency').textContent = k.efficiency + '%';
         document.getElementById('kpi-energy').textContent = k.energyConsumption + ' kWh';
         document.getElementById('kpi-orders').textContent = k.activeOrders;
-        document.getElementById('last-update').textContent = 'Last Update: ' + state.lastUpdate.toLocaleTimeString('en-GB');
+        document.getElementById('last-update').textContent = 'Last Update: ' + (state.lastUpdate ? state.lastUpdate.toLocaleTimeString('en-GB') : '--:--:--');
     } catch (err) {
         console.error('renderKPIs failed:', err);
     }
@@ -74,22 +74,26 @@ function randomizeSomeMachinesRunning(machines) {
     });
 }
 
+function safeInit(name, fn) {
+    try { fn(); } catch (err) { console.error('Init step failed: ' + name, err); }
+}
+
 function initApp() {
     console.log('Initializing app...');
     MACHINES.forEach(initMachineData);
     randomizeSomeMachinesRunning(MACHINES);
-    initState(MACHINES);
+    safeInit("initState(MACHINES);", () => initState(MACHINES););
 
     logEvent('Factory simulation initialized with ' + MACHINES.length + ' machines');
     renderKPIs(FactoryState);
     renderEventFeed();
 
-    initFactoryFloorControls(MACHINES);
-    initMachineDetailControls();
-    initAlertEngine();
-    initIncidentEngine();
-    initAutomationEngine();
-    initOrderForm();
+    safeInit("initFactoryFloorControls(MACHINES);", () => initFactoryFloorControls(MACHINES););
+    safeInit("initMachineDetailControls();", () => initMachineDetailControls(););
+    safeInit("initAlertEngine();", () => initAlertEngine(););
+    safeInit("initIncidentEngine();", () => initIncidentEngine(););
+    safeInit("initAutomationEngine();", () => initAutomationEngine(););
+    safeInit("initOrderForm();", () => initOrderForm(););
     renderOrdersPanel();
     renderIncidentsPanel();
     renderAlertsPanel();
@@ -100,3 +104,5 @@ function initApp() {
 }
 
 document.addEventListener('DOMContentLoaded', initApp);
+
+

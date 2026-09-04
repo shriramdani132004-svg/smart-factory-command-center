@@ -154,7 +154,9 @@ function renderOrdersPanel() {
 }
 
 function initOrderForm() {
-    document.getElementById('order-create-btn').addEventListener('click', () => {
+    const btn = document.getElementById('order-create-btn');
+    if (!btn) { console.error('initOrderForm: order-create-btn not found in DOM, skipping wire-up'); return; }
+    btn.addEventListener('click', () => {
         const product = document.getElementById('order-product').value || 'P-100';
         const qty = parseInt(document.getElementById('order-qty').value) || 1000;
         const priority = document.getElementById('order-priority').value;
@@ -166,3 +168,4 @@ function initOrderForm() {
 if (typeof module !== "undefined") {
     module.exports = { createOrder, assignOrder, updateOrderProgress, cancelOrder, renderOrdersPanel, initOrderForm };
 }
+
