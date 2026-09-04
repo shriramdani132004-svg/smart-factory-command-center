@@ -1,4 +1,4 @@
-﻿// app.js - consolidated (Phase 5-17)
+﻿// app.js - consolidated (Phase 5-18)
 
 let simulationInterval = null;
 let tickCount = 0;
@@ -112,6 +112,11 @@ function randomizeSomeMachinesRunning(machines) {
 function initApp() {
     console.log('Initializing app...');
 
+    safeInit('permissions', () => {
+        if (typeof initPermissionGuard === 'function') initPermissionGuard();
+        if (typeof initLoginScreen === 'function') initLoginScreen();
+    });
+
     safeInit('machineData', () => {
         MACHINES.forEach(initMachineData);
         randomizeSomeMachinesRunning(MACHINES);
@@ -168,6 +173,10 @@ function initApp() {
     safeInit('storageInit', () => {
         if (typeof initStorageControls === 'function') initStorageControls();
         if (typeof loadPersistedData === 'function') loadPersistedData();
+    });
+
+    safeInit('applyRole', () => {
+        if (typeof applyRoleToUI === 'function') applyRoleToUI();
     });
 
     simulationInterval = startSimulation(MACHINES, onSimulationTick);

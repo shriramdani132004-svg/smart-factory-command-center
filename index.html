@@ -1,18 +1,39 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart Factory Command Center</title>
-    <link rel="stylesheet" href="style.css?v=20260904182001">
+    <link rel="stylesheet" href="style.css?v=20260904182248">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
 </head>
 <body>
+    <div id="login-overlay" class="login-overlay">
+        <div class="login-box">
+            <h1>Smart Factory Command Center</h1>
+            <p class="login-sub">Sign in to continue</p>
+            <input type="text" id="login-name" placeholder="Your name" class="login-input">
+            <select id="login-role" class="login-input">
+                <option value="ADMIN">Administrator - full access</option>
+                <option value="SUPERVISOR">Supervisor - operations + settings</option>
+                <option value="OPERATOR" selected>Operator - day-to-day control</option>
+                <option value="VIEWER">Viewer - read-only</option>
+            </select>
+            <button id="login-btn" class="ctrl-btn ctrl-start" style="width:100%;padding:0.7rem;margin-top:0.5rem">SIGN IN</button>
+        </div>
+    </div>
+
     <header class="topbar">
         <h1>Smart Factory Command Center</h1>
-        <div class="live-indicator">
-            <span class="live-dot"></span> LIVE
-            <span id="last-update" class="last-update">Last Update: --:--:--</span>
+        <div class="topbar-right">
+            <div class="live-indicator">
+                <span class="live-dot"></span> LIVE
+                <span id="last-update" class="last-update">Last Update: --:--:--</span>
+            </div>
+            <div class="user-badge">
+                <span id="current-role-label">Guest</span>
+                <button id="logout-btn" class="logout-btn">Switch User</button>
+            </div>
         </div>
     </header>
 
@@ -186,26 +207,26 @@
         </div>
     </div>
 
-    <script src="js/config.js?v=20260904182001"></script>
-    <script src="js/factory.js?v=20260904182001"></script>
-    <script src="js/machine.js?v=20260904182001"></script>
-    <script src="js/simulator.js?v=20260904182001"></script>
-    <script src="js/state.js?v=20260904182001"></script>
-    <script src="js/factoryFloor.js?v=20260904182001"></script>
-    <script src="js/events.js?v=20260904182001"></script>
-    <script src="js/controller.js?v=20260904182001"></script>
-    <script src="js/alerts.js?v=20260904182001"></script>
-    <script src="js/incidents.js?v=20260904182001"></script>
-    <script src="js/maintenance.js?v=20260904182001"></script>
-    <script src="js/automation.js?v=20260904182001"></script>
-    <script src="js/allocation.js?v=20260904182001"></script>
-    <script src="js/production.js?v=20260904182001"></script>
-    <script src="js/ai.js?v=20260904182001"></script>
-    <script src="js/analytics.js?v=20260904182001"></script>
-    <script src="js/storage.js?v=20260904182001"></script>
-    <script src="js/permissions.js?v=20260904182001"></script>
-    <script src="js/audit.js?v=20260904182001"></script>
-    <script src="js/machineDetail.js?v=20260904182001"></script>
-    <script src="js/app.js?v=20260904182001"></script>
+    <script src="js/config.js?v=20260904182248"></script>
+    <script src="js/factory.js?v=20260904182248"></script>
+    <script src="js/machine.js?v=20260904182248"></script>
+    <script src="js/simulator.js?v=20260904182248"></script>
+    <script src="js/state.js?v=20260904182248"></script>
+    <script src="js/factoryFloor.js?v=20260904182248"></script>
+    <script src="js/events.js?v=20260904182248"></script>
+    <script src="js/controller.js?v=20260904182248"></script>
+    <script src="js/alerts.js?v=20260904182248"></script>
+    <script src="js/incidents.js?v=20260904182248"></script>
+    <script src="js/maintenance.js?v=20260904182248"></script>
+    <script src="js/automation.js?v=20260904182248"></script>
+    <script src="js/allocation.js?v=20260904182248"></script>
+    <script src="js/production.js?v=20260904182248"></script>
+    <script src="js/ai.js?v=20260904182248"></script>
+    <script src="js/analytics.js?v=20260904182248"></script>
+    <script src="js/storage.js?v=20260904182248"></script>
+    <script src="js/permissions.js?v=20260904182248"></script>
+    <script src="js/audit.js?v=20260904182248"></script>
+    <script src="js/machineDetail.js?v=20260904182248"></script>
+    <script src="js/app.js?v=20260904182248"></script>
 </body>
 </html>
