@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart Factory Command Center</title>
-    <link rel="stylesheet" href="style.css?v=20260904062237">
+    <link rel="stylesheet" href="style.css?v=20260904062427">
 </head>
 <body>
     <header class="topbar">
@@ -55,25 +55,47 @@
         <div id="event-feed" class="event-feed"></div>
     </section>
 
-    <script src="js/config.js?v=20260904062237"></script>
-    <script src="js/factory.js?v=20260904062237"></script>
-    <script src="js/machine.js?v=20260904062237"></script>
-    <script src="js/simulator.js?v=20260904062237"></script>
-    <script src="js/state.js?v=20260904062237"></script>
-    <script src="js/factoryFloor.js?v=20260904062237"></script>
-    <script src="js/events.js?v=20260904062237"></script>
-    <script src="js/controller.js?v=20260904062237"></script>
-    <script src="js/alerts.js?v=20260904062237"></script>
-    <script src="js/incidents.js?v=20260904062237"></script>
-    <script src="js/automation.js?v=20260904062237"></script>
-    <script src="js/production.js?v=20260904062237"></script>
-    <script src="js/allocation.js?v=20260904062237"></script>
-    <script src="js/maintenance.js?v=20260904062237"></script>
-    <script src="js/analytics.js?v=20260904062237"></script>
-    <script src="js/ai.js?v=20260904062237"></script>
-    <script src="js/storage.js?v=20260904062237"></script>
-    <script src="js/permissions.js?v=20260904062237"></script>
-    <script src="js/audit.js?v=20260904062237"></script>
-    <script src="js/app.js?v=20260904062237"></script>
+    <script src="js/config.js?v=20260904062427"></script>
+    <script src="js/factory.js?v=20260904062427"></script>
+    <script src="js/machine.js?v=20260904062427"></script>
+    <script src="js/simulator.js?v=20260904062427"></script>
+    <script src="js/state.js?v=20260904062427"></script>
+    <script src="js/factoryFloor.js?v=20260904062427"></script>
+    <script src="js/events.js?v=20260904062427"></script>
+    <script src="js/controller.js?v=20260904062427"></script>
+    <script src="js/alerts.js?v=20260904062427"></script>
+    <script src="js/incidents.js?v=20260904062427"></script>
+    <script src="js/automation.js?v=20260904062427"></script>
+    <script src="js/production.js?v=20260904062427"></script>
+    <script src="js/allocation.js?v=20260904062427"></script>
+    <script src="js/maintenance.js?v=20260904062427"></script>
+    <script src="js/analytics.js?v=20260904062427"></script>
+    <script src="js/ai.js?v=20260904062427"></script>
+    <script src="js/storage.js?v=20260904062427"></script>
+    <script src="js/permissions.js?v=20260904062427"></script>
+    <script src="js/audit.js?v=20260904062427"></script>
+    <script src="js/machineDetail.js?v=20260904062427"></script>
+    <script src="js/app.js?v=20260904062427"></script>
+    <div id="detail-panel" class="detail-panel">
+        <div class="detail-header">
+            <h2 id="detail-title">Machine</h2>
+            <button id="detail-close" class="detail-close-btn">X</button>
+        </div>
+        <span id="detail-status" class="status-badge">--</span>
+        <div id="detail-body" class="detail-body"></div>
+        <div class="control-buttons">
+            <button id="btn-start" class="ctrl-btn ctrl-start">START</button>
+            <button id="btn-stop" class="ctrl-btn ctrl-stop">STOP</button>
+            <button id="btn-pause" class="ctrl-btn ctrl-pause">PAUSE</button>
+            <button id="btn-resume" class="ctrl-btn ctrl-resume">RESUME</button>
+            <button id="btn-reset" class="ctrl-btn ctrl-reset">RESET</button>
+            <button id="btn-estop" class="ctrl-btn ctrl-estop">EMERGENCY STOP</button>
+        </div>
+    </div>
+
+    <section class="audit-panel">
+        <h2>Audit Log</h2>
+        <div id="audit-log" class="audit-log"></div>
+    </section>
 </body>
 </html>

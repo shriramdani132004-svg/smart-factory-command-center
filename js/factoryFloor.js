@@ -1,4 +1,4 @@
-﻿// factoryFloor.js
+// factoryFloor.js
 // Phase 6: Interactive Factory Floor Visualization
 
 const FloorFilters = {
@@ -92,7 +92,7 @@ function renderFactoryFloor(allMachines) {
         el.addEventListener("click", () => {
             const id = el.getAttribute("data-machine-id");
             const machine = getMachine(id);
-            showMachinePopup(machine);
+            openMachineDetail(id);
         });
     });
 }

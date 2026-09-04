@@ -147,3 +147,93 @@ body {
     display: inline-block;
 }
 .no-results { color: #8b949e; padding: 1rem; }
+
+.detail-panel {
+    position: fixed;
+    top: 0;
+    right: -380px;
+    width: 360px;
+    height: 100vh;
+    background: #161b22;
+    border-left: 1px solid #30363d;
+    padding: 1.2rem;
+    transition: right 0.25s ease;
+    overflow-y: auto;
+    z-index: 100;
+}
+.detail-panel.open { right: 0; }
+.detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.6rem;
+}
+.detail-close-btn {
+    background: #21262d;
+    border: none;
+    color: #e6edf3;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+.status-badge {
+    display: inline-block;
+    padding: 0.25rem 0.6rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    background: #21262d;
+    margin-bottom: 1rem;
+}
+.status-RUNNING { color: #3fb950; }
+.status-FAULT { color: #f85149; }
+.status-OFFLINE { color: #8b949e; }
+.status-IDLE { color: #58a6ff; }
+.status-EMERGENCY_STOP { color: #f85149; }
+.detail-body { margin-bottom: 1.2rem; }
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.35rem 0;
+    border-bottom: 1px solid #21262d;
+    font-size: 0.85rem;
+}
+.control-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+}
+.ctrl-btn {
+    padding: 0.6rem;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 0.8rem;
+    color: #fff;
+}
+.ctrl-start { background: #238636; }
+.ctrl-stop { background: #58a6ff; }
+.ctrl-pause { background: #d29922; }
+.ctrl-resume { background: #3fb950; }
+.ctrl-reset { background: #6e7681; }
+.ctrl-estop { background: #da3633; grid-column: span 2; }
+.audit-panel {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-top: 2rem;
+}
+.audit-log {
+    max-height: 250px;
+    overflow-y: auto;
+    font-family: 'Consolas', monospace;
+    font-size: 0.78rem;
+}
+.audit-item {
+    padding: 0.25rem 0;
+    border-bottom: 1px solid #21262d;
+    color: #c9d1d9;
+}

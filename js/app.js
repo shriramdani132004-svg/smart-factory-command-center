@@ -1,4 +1,4 @@
-﻿// app.js
+// app.js
 // Main application entry point - wires simulator -> state -> dashboard -> factory floor (Phase 5 + 6)
 
 let simulationInterval = null;
@@ -84,6 +84,7 @@ function initApp() {
     renderEventFeed();
 
     initFactoryFloorControls(MACHINES);
+    initMachineDetailControls();
     renderFactoryFloor(MACHINES);
 
     simulationInterval = startSimulation(MACHINES, onSimulationTick);
