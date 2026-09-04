@@ -7,14 +7,38 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Smart Factory Command Center</h1>
-    <p>Phase 1: Foundation deployed.</p>
+    <header class="topbar">
+        <h1>Smart Factory Command Center</h1>
+        <div class="live-indicator">
+            <span class="live-dot"></span> LIVE
+            <span id="last-update" class="last-update">Last Update: --:--:--</span>
+        </div>
+    </header>
+
+    <section class="kpi-grid">
+        <div class="kpi-card"><span class="kpi-label">Total Machines</span><span id="kpi-total" class="kpi-value">0</span></div>
+        <div class="kpi-card running"><span class="kpi-label">Running</span><span id="kpi-running" class="kpi-value">0</span></div>
+        <div class="kpi-card idle"><span class="kpi-label">Idle</span><span id="kpi-idle" class="kpi-value">0</span></div>
+        <div class="kpi-card fault"><span class="kpi-label">Fault</span><span id="kpi-fault" class="kpi-value">0</span></div>
+        <div class="kpi-card offline"><span class="kpi-label">Offline</span><span id="kpi-offline" class="kpi-value">0</span></div>
+        <div class="kpi-card alerts"><span class="kpi-label">Active Alerts</span><span id="kpi-alerts" class="kpi-value">0</span></div>
+        <div class="kpi-card"><span class="kpi-label">Production Today</span><span id="kpi-production" class="kpi-value">0</span></div>
+        <div class="kpi-card"><span class="kpi-label">Production Rate</span><span id="kpi-rate" class="kpi-value">0</span></div>
+        <div class="kpi-card"><span class="kpi-label">Efficiency</span><span id="kpi-efficiency" class="kpi-value">0%</span></div>
+        <div class="kpi-card"><span class="kpi-label">Energy</span><span id="kpi-energy" class="kpi-value">0 kWh</span></div>
+        <div class="kpi-card"><span class="kpi-label">Active Orders</span><span id="kpi-orders" class="kpi-value">0</span></div>
+    </section>
+
+    <section class="feed-panel">
+        <h2>Live Event Feed</h2>
+        <div id="event-feed" class="event-feed"></div>
+    </section>
 
     <script src="js/config.js"></script>
-    <script src="js/state.js"></script>
     <script src="js/factory.js"></script>
     <script src="js/machine.js"></script>
     <script src="js/simulator.js"></script>
+    <script src="js/state.js"></script>
     <script src="js/events.js"></script>
     <script src="js/controller.js"></script>
     <script src="js/alerts.js"></script>
