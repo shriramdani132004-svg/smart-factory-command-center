@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart Factory Command Center</title>
-    <link rel="stylesheet" href="style.css?v=20260904132322">
+    <link rel="stylesheet" href="style.css?v=20260904132545">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
 </head>
 <body>
     <header class="topbar">
@@ -27,6 +28,28 @@
         <div class="kpi-card"><span class="kpi-label">Efficiency</span><span id="kpi-efficiency" class="kpi-value">0%</span></div>
         <div class="kpi-card"><span class="kpi-label">Energy</span><span id="kpi-energy" class="kpi-value">0 kWh</span></div>
         <div class="kpi-card"><span class="kpi-label">Active Orders</span><span id="kpi-orders" class="kpi-value">0</span></div>
+    </section>
+
+    <section class="analytics-panel">
+        <div class="analytics-header">
+            <h2>Factory Analytics</h2>
+            <div class="time-filters">
+                <button class="time-filter-btn active" data-range="1h">Last 1 Hour</button>
+                <button class="time-filter-btn" data-range="today">Today</button>
+                <button class="time-filter-btn" data-range="7d">Last 7 Days</button>
+                <button class="time-filter-btn" data-range="30d">Last 30 Days</button>
+            </div>
+        </div>
+        <div id="analytics-summary" class="analytics-summary"></div>
+        <div class="charts-grid">
+            <div class="chart-box"><h3>Production Trend</h3><canvas id="chart-production"></canvas></div>
+            <div class="chart-box"><h3>Efficiency Trend</h3><canvas id="chart-efficiency"></canvas></div>
+            <div class="chart-box"><h3>Energy Trend</h3><canvas id="chart-energy"></canvas></div>
+            <div class="chart-box"><h3>Downtime Trend</h3><canvas id="chart-downtime"></canvas></div>
+            <div class="chart-box"><h3>Machine Health Trend</h3><canvas id="chart-health"></canvas></div>
+            <div class="chart-box"><h3>Fault Trend</h3><canvas id="chart-faults"></canvas></div>
+            <div class="chart-box"><h3>Maintenance Trend</h3><canvas id="chart-maintenance"></canvas></div>
+        </div>
     </section>
 
     <section class="alerts-panel">
@@ -135,26 +158,26 @@
         </div>
     </div>
 
-    <script src="js/config.js?v=20260904132322"></script>
-    <script src="js/factory.js?v=20260904132322"></script>
-    <script src="js/machine.js?v=20260904132322"></script>
-    <script src="js/simulator.js?v=20260904132322"></script>
-    <script src="js/state.js?v=20260904132322"></script>
-    <script src="js/factoryFloor.js?v=20260904132322"></script>
-    <script src="js/events.js?v=20260904132322"></script>
-    <script src="js/controller.js?v=20260904132322"></script>
-    <script src="js/alerts.js?v=20260904132322"></script>
-    <script src="js/incidents.js?v=20260904132322"></script>
-    <script src="js/maintenance.js?v=20260904132322"></script>
-    <script src="js/automation.js?v=20260904132322"></script>
-    <script src="js/allocation.js?v=20260904132322"></script>
-    <script src="js/production.js?v=20260904132322"></script>
-    <script src="js/ai.js?v=20260904132322"></script>
-    <script src="js/analytics.js?v=20260904132322"></script>
-    <script src="js/storage.js?v=20260904132322"></script>
-    <script src="js/permissions.js?v=20260904132322"></script>
-    <script src="js/audit.js?v=20260904132322"></script>
-    <script src="js/machineDetail.js?v=20260904132322"></script>
-    <script src="js/app.js?v=20260904132322"></script>
+    <script src="js/config.js?v=20260904132545"></script>
+    <script src="js/factory.js?v=20260904132545"></script>
+    <script src="js/machine.js?v=20260904132545"></script>
+    <script src="js/simulator.js?v=20260904132545"></script>
+    <script src="js/state.js?v=20260904132545"></script>
+    <script src="js/factoryFloor.js?v=20260904132545"></script>
+    <script src="js/events.js?v=20260904132545"></script>
+    <script src="js/controller.js?v=20260904132545"></script>
+    <script src="js/alerts.js?v=20260904132545"></script>
+    <script src="js/incidents.js?v=20260904132545"></script>
+    <script src="js/maintenance.js?v=20260904132545"></script>
+    <script src="js/automation.js?v=20260904132545"></script>
+    <script src="js/allocation.js?v=20260904132545"></script>
+    <script src="js/production.js?v=20260904132545"></script>
+    <script src="js/ai.js?v=20260904132545"></script>
+    <script src="js/analytics.js?v=20260904132545"></script>
+    <script src="js/storage.js?v=20260904132545"></script>
+    <script src="js/permissions.js?v=20260904132545"></script>
+    <script src="js/audit.js?v=20260904132545"></script>
+    <script src="js/machineDetail.js?v=20260904132545"></script>
+    <script src="js/app.js?v=20260904132545"></script>
 </body>
 </html>

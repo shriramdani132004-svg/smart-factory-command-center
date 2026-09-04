@@ -1,4 +1,4 @@
-﻿// app.js - consolidated (Phase 5-15)
+﻿// app.js - consolidated (Phase 5-16)
 
 let simulationInterval = null;
 let tickCount = 0;
@@ -75,6 +75,13 @@ function onSimulationTick(machines) {
             if (typeof renderPredictivePanel === 'function') renderPredictivePanel(machines);
         }
 
+        if (typeof recordAnalyticsSnapshot === 'function') {
+            recordAnalyticsSnapshot(FactoryState);
+        }
+        if (tickCount % 10 === 0 && typeof renderAnalyticsCharts === 'function') {
+            renderAnalyticsCharts();
+        }
+
         renderKPIs(FactoryState);
         renderEventFeed();
         if (typeof renderFactoryFloor === 'function') renderFactoryFloor(FactoryState.machines);
@@ -147,6 +154,11 @@ function initApp() {
 
     safeInit('maintenanceInit', () => {
         if (typeof renderMaintenancePanel === 'function') renderMaintenancePanel();
+    });
+
+    safeInit('analyticsInit', () => {
+        if (typeof initAnalyticsControls === 'function') initAnalyticsControls();
+        if (typeof recordAnalyticsSnapshot === 'function') recordAnalyticsSnapshot(FactoryState);
     });
 
     simulationInterval = startSimulation(MACHINES, onSimulationTick);
