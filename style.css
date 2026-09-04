@@ -237,3 +237,44 @@ body {
     border-bottom: 1px solid #21262d;
     color: #c9d1d9;
 }
+
+.alerts-panel {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 2rem;
+}
+.alerts-panel h2 { font-size: 1.1rem; margin-bottom: 0.8rem; }
+.alerts-list { max-height: 320px; overflow-y: auto; }
+.alert-item {
+    border-left: 4px solid #8b949e;
+    background: #0d1117;
+    border-radius: 6px;
+    padding: 0.6rem 0.8rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+.alert-item.sev-critical { border-left-color: #f85149; }
+.alert-item.sev-warning { border-left-color: #d29922; }
+.alert-item.sev-info { border-left-color: #58a6ff; }
+.alert-main { display: flex; gap: 0.7rem; align-items: center; font-size: 0.85rem; }
+.alert-sev { font-weight: bold; font-size: 0.7rem; padding: 0.15rem 0.4rem; border-radius: 4px; background: #21262d; }
+.alert-time { color: #8b949e; font-size: 0.75rem; }
+.alert-actions { display: flex; gap: 0.4rem; }
+.alert-btn {
+    background: #21262d;
+    border: 1px solid #30363d;
+    color: #e6edf3;
+    padding: 0.3rem 0.6rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.7rem;
+}
+.resolve-btn:hover { background: #238636; }
+.ack-btn:hover { background: #1f6feb; }
+.ack-tag { font-size: 0.7rem; color: #8b949e; padding: 0.3rem; }

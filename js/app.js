@@ -54,6 +54,7 @@ function onSimulationTick(machines) {
         const prevStatuses = machines.map(m => m._prevStatus);
         updateState(machines);
         detectEvents(prevStatuses, machines);
+        analyzeAllMachines(machines);
         machines.forEach(m => { m._prevStatus = m.currentStatus; });
         renderKPIs(FactoryState);
         renderEventFeed();
@@ -85,6 +86,8 @@ function initApp() {
 
     initFactoryFloorControls(MACHINES);
     initMachineDetailControls();
+    initAlertEngine();
+    renderAlertsPanel();
     renderFactoryFloor(MACHINES);
 
     simulationInterval = startSimulation(MACHINES, onSimulationTick);
