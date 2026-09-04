@@ -1,5 +1,4 @@
-﻿// machine.js
-// Machine schema and initial machine generation (Phase 2 target: 50 machines)
+﻿// machine.js - 250 machines across 10 production lines
 
 function createMachine(id, type, lineId, locationLabel) {
     return {
@@ -22,7 +21,7 @@ function createMachine(id, type, lineId, locationLabel) {
 
 function generateInitialMachines(count) {
     const machines = [];
-    const lines = ["LINE-01", "LINE-02", "LINE-03", "LINE-04", "LINE-05"];
+    const lines = ["LINE-01","LINE-02","LINE-03","LINE-04","LINE-05","LINE-06","LINE-07","LINE-08","LINE-09","LINE-10"];
 
     for (let i = 1; i <= count; i++) {
         const id = "M" + String(i).padStart(3, "0");
@@ -34,8 +33,8 @@ function generateInitialMachines(count) {
     return machines;
 }
 
-// Phase 2 initial target: 50 machines
-const MACHINES = generateInitialMachines(50);
+// 250 machines (upgraded from initial 50 for full-scale demo)
+const MACHINES = generateInitialMachines(250);
 
 if (typeof module !== "undefined") {
     module.exports = { createMachine, generateInitialMachines, MACHINES };

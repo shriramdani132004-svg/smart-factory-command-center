@@ -1,13 +1,11 @@
-﻿// simulator.js
-// Real-time machine simulation engine - generates data every second (Phase 3)
+﻿// simulator.js - with continuous auto-recovery / auto-restart for a live, ever-changing factory
 
 const SIMULATION_CONFIG = {
-    speed: 1,          // 1x, 2x, 5x, 10x
-    intervalMs: 1000,  // base tick = 1 real second
+    speed: 1,
+    intervalMs: 1000,
     running: false
 };
 
-// Machine-specific baseline operating ranges
 function getBaseline(machineType) {
     const baselines = {
         "CNC Machine":              { temp: 65, rpm: 2400, vibration: 2.0 },
@@ -24,7 +22,6 @@ function getBaseline(machineType) {
     return baselines[machineType] || { temp: 60, rpm: 1000, vibration: 2.0 };
 }
 
-// Initialize live sensor data on each machine object
 function initMachineData(machine) {
     const base = getBaseline(machine.machineType);
     machine.sensors = {
@@ -48,7 +45,6 @@ function initMachineData(machine) {
     return machine;
 }
 
-// Apply one tick of random variation / gradual degradation / faults
 function simulateTick(machine) {
     if (!machine.sensors) initMachineData(machine);
     const base = getBaseline(machine.machineType);
@@ -56,7 +52,6 @@ function simulateTick(machine) {
     const m = machine.metrics;
 
     if (machine.currentStatus === "RUNNING") {
-        // Normal random variation
         s.temperature += (Math.random() - 0.45) * 1.5;
         s.rpm += (Math.random() - 0.5) * 20;
         s.vibration += (Math.random() - 0.45) * 0.3;
@@ -64,7 +59,6 @@ function simulateTick(machine) {
         s.current += (Math.random() - 0.5) * 0.5;
         s.powerConsumption = (s.voltage * s.current) / 1000;
 
-        // Production increments
         if (Math.random() > 0.3) {
             m.productionCount += 1;
         }
@@ -72,28 +66,51 @@ function simulateTick(machine) {
         m.utilization = Math.min(100, m.utilization + 0.1);
 
         // Random minor fault chance
-        if (Math.random() < 0.002) {
+        if (Math.random() < 0.0025) {
             s.temperature += 10;
             s.vibration += 3;
             m.errorCount += 1;
         }
 
-        // Major fault / anomaly threshold check
         if (s.temperature > machine.operatingLimits.tempMax || s.vibration > machine.operatingLimits.vibrationMax) {
             machine.currentStatus = "FAULT";
+            machine._faultTick = 0;
         }
 
-        // Clamp to baseline drift range (gradual recovery pull)
         s.temperature += (base.temp - s.temperature) * 0.01;
         s.vibration += (base.vibration - s.vibration) * 0.01;
 
         m.efficiency = Math.max(0, 100 - (m.errorCount * 5) - Math.max(0, s.vibration - base.vibration) * 3);
+
+        // Small chance a running machine pauses briefly (adds continuous movement)
+        if (Math.random() < 0.0015) {
+            machine.currentStatus = "PAUSED";
+        }
     } else if (machine.currentStatus === "IDLE" || machine.currentStatus === "STOPPED") {
         m.downtime += 1;
         s.rpm = Math.max(0, s.rpm * 0.9);
+
+        // Auto-restart: idle/stopped machines periodically come back online (new work assigned)
+        if (Math.random() < 0.01) {
+            machine.currentStatus = "RUNNING";
+        }
+    } else if (machine.currentStatus === "PAUSED") {
+        // Paused machines resume after a short random wait
+        if (Math.random() < 0.15) {
+            machine.currentStatus = "RUNNING";
+        }
+    } else if (machine.currentStatus === "FAULT") {
+        // Continuous self-healing: minor faults auto-recover over a few seconds
+        // (represents quick auto-resets; CRITICAL faults still get full maintenance workflow via automation.js)
+        machine._faultTick = (machine._faultTick || 0) + 1;
+        if (machine._faultTick > 6 && Math.random() < 0.25) {
+            machine.currentStatus = "IDLE";
+            s.temperature = base.temp;
+            s.vibration = base.vibration;
+            machine._faultTick = 0;
+        }
     }
 
-    // Round values for display
     s.temperature = Math.round(s.temperature * 10) / 10;
     s.rpm = Math.round(s.rpm);
     s.vibration = Math.round(s.vibration * 10) / 10;
@@ -102,13 +119,11 @@ function simulateTick(machine) {
     return machine;
 }
 
-// Run one simulation tick across all machines
 function simulateAllMachines(machines) {
     machines.forEach(simulateTick);
     return machines;
 }
 
-// Start the real-time loop (called from app.js)
 function startSimulation(machines, onTick) {
     SIMULATION_CONFIG.running = true;
     return setInterval(() => {
