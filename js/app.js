@@ -1,5 +1,5 @@
 ﻿// app.js
-// Main application entry point - wires simulator -> state -> dashboard (Phase 5)
+// Main application entry point - wires simulator -> state -> dashboard -> factory floor (Phase 5 + 6)
 
 let simulationInterval = null;
 const eventFeed = [];
@@ -57,7 +57,7 @@ function onSimulationTick(machines) {
         machines.forEach(m => { m._prevStatus = m.currentStatus; });
         renderKPIs(FactoryState);
         renderEventFeed();
-        console.log('Tick @', new Date().toLocaleTimeString(), '- Production:', FactoryState.kpis.productionToday);
+        renderFactoryFloor(FactoryState.machines);
     } catch (err) {
         console.error('onSimulationTick failed:', err);
     }
@@ -82,6 +82,9 @@ function initApp() {
     logEvent('Factory simulation initialized with ' + MACHINES.length + ' machines');
     renderKPIs(FactoryState);
     renderEventFeed();
+
+    initFactoryFloorControls(MACHINES);
+    renderFactoryFloor(MACHINES);
 
     simulationInterval = startSimulation(MACHINES, onSimulationTick);
     console.log('Simulation started. Interval ID:', simulationInterval);
