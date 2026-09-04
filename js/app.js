@@ -88,6 +88,7 @@ function initApp() {
     initMachineDetailControls();
     initAlertEngine();
     initIncidentEngine();
+    initAutomationEngine();
     renderIncidentsPanel();
     renderAlertsPanel();
     renderFactoryFloor(MACHINES);

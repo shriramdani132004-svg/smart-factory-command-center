@@ -326,3 +326,30 @@ body {
     font-weight: bold;
 }
 .incident-btn:hover { background: #1f6feb; }
+
+.automation-panel {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 2rem;
+}
+.automation-panel h2 { font-size: 1.1rem; margin-bottom: 0.8rem; }
+.automation-log { max-height: 260px; overflow-y: auto; font-size: 0.8rem; }
+.automation-item {
+    display: flex;
+    gap: 0.7rem;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid #21262d;
+    flex-wrap: wrap;
+}
+.auto-time { color: #8b949e; font-family: 'Consolas', monospace; }
+.auto-rule {
+    color: #d29922;
+    font-weight: bold;
+    background: #21262d;
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.72rem;
+}
+.auto-desc { color: #c9d1d9; }
