@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart Factory Command Center</title>
-    <link rel="stylesheet" href="style.css?v=20260904130721">
+    <link rel="stylesheet" href="style.css?v=20260904131429">
 </head>
 <body>
     <header class="topbar">
@@ -29,7 +29,43 @@
         <div class="kpi-card"><span class="kpi-label">Active Orders</span><span id="kpi-orders" class="kpi-value">0</span></div>
     </section>
 
-    <section class="orders-panel"><div class="orders-header"><h2>Production Orders</h2><div class="order-form"><input type="text" id="order-product" placeholder="Product (e.g. P-100)" class="floor-input"><input type="number" id="order-qty" placeholder="Quantity" class="floor-input" style="width:100px"><select id="order-priority" class="floor-select"><option value="LOW">Low</option><option value="NORMAL" selected>Normal</option><option value="HIGH">High</option><option value="URGENT">Urgent</option></select><button id="order-create-btn" class="ctrl-btn ctrl-start" style="width:auto;padding:0.5rem 1rem">+ CREATE ORDER</button></div></div><div id="orders-list" class="orders-list"></div></section>
+    <section class="alerts-panel">
+        <h2>Active Alerts</h2>
+        <div id="alerts-list" class="alerts-list"></div>
+    </section>
+
+    <section class="incidents-panel">
+        <h2>Open Incidents</h2>
+        <div id="incidents-list" class="incidents-list"></div>
+    </section>
+
+    <section class="automation-panel">
+        <h2>Automated Actions Log</h2>
+        <div id="automation-log" class="automation-log"></div>
+    </section>
+
+    <section class="orders-panel">
+        <div class="orders-header">
+            <h2>Production Orders</h2>
+            <div class="order-form">
+                <input type="text" id="order-product" placeholder="Product (e.g. P-100)" class="floor-input">
+                <input type="number" id="order-qty" placeholder="Quantity" class="floor-input" style="width:100px">
+                <select id="order-priority" class="floor-select">
+                    <option value="LOW">Low</option>
+                    <option value="NORMAL" selected>Normal</option>
+                    <option value="HIGH">High</option>
+                    <option value="URGENT">Urgent</option>
+                </select>
+                <button id="order-create-btn" class="ctrl-btn ctrl-start" style="width:auto;padding:0.5rem 1rem">+ CREATE ORDER</button>
+            </div>
+        </div>
+        <div id="orders-list" class="orders-list"></div>
+    </section>
+
+    <section class="allocation-panel">
+        <h2>Allocation Engine (Last Decision)</h2>
+        <div id="allocation-debug" class="allocation-debug"></div>
+    </section>
 
     <section class="floor-panel">
         <div class="floor-header">
@@ -57,27 +93,11 @@
         <div id="event-feed" class="event-feed"></div>
     </section>
 
-    <script src="js/config.js?v=20260904130721"></script>
-    <script src="js/factory.js?v=20260904130721"></script>
-    <script src="js/machine.js?v=20260904130721"></script>
-    <script src="js/simulator.js?v=20260904130721"></script>
-    <script src="js/state.js?v=20260904130721"></script>
-    <script src="js/factoryFloor.js?v=20260904130721"></script>
-    <script src="js/events.js?v=20260904130721"></script>
-    <script src="js/controller.js?v=20260904130721"></script>
-    <script src="js/alerts.js?v=20260904130721"></script>
-    <script src="js/incidents.js?v=20260904130721"></script>
-    <script src="js/automation.js?v=20260904130721"></script>
-    <script src="js/production.js?v=20260904130721"></script>
-    <script src="js/allocation.js?v=20260904130721"></script>
-    <script src="js/maintenance.js?v=20260904130721"></script>
-    <script src="js/analytics.js?v=20260904130721"></script>
-    <script src="js/ai.js?v=20260904130721"></script>
-    <script src="js/storage.js?v=20260904130721"></script>
-    <script src="js/permissions.js?v=20260904130721"></script>
-    <script src="js/audit.js?v=20260904130721"></script>
-    <script src="js/machineDetail.js?v=20260904130721"></script>
-    <script src="js/app.js?v=20260904130721"></script>
+    <section class="audit-panel">
+        <h2>Audit Log</h2>
+        <div id="audit-log" class="audit-log"></div>
+    </section>
+
     <div id="detail-panel" class="detail-panel">
         <div class="detail-header">
             <h2 id="detail-title">Machine</h2>
@@ -95,10 +115,26 @@
         </div>
     </div>
 
-    <section class="audit-panel">
-        <h2>Audit Log</h2>
-        <div id="audit-log" class="audit-log"></div>
-    </section>
+    <script src="js/config.js?v=20260904131429"></script>
+    <script src="js/factory.js?v=20260904131429"></script>
+    <script src="js/machine.js?v=20260904131429"></script>
+    <script src="js/simulator.js?v=20260904131429"></script>
+    <script src="js/state.js?v=20260904131429"></script>
+    <script src="js/factoryFloor.js?v=20260904131429"></script>
+    <script src="js/events.js?v=20260904131429"></script>
+    <script src="js/controller.js?v=20260904131429"></script>
+    <script src="js/alerts.js?v=20260904131429"></script>
+    <script src="js/incidents.js?v=20260904131429"></script>
+    <script src="js/automation.js?v=20260904131429"></script>
+    <script src="js/allocation.js?v=20260904131429"></script>
+    <script src="js/production.js?v=20260904131429"></script>
+    <script src="js/maintenance.js?v=20260904131429"></script>
+    <script src="js/analytics.js?v=20260904131429"></script>
+    <script src="js/ai.js?v=20260904131429"></script>
+    <script src="js/storage.js?v=20260904131429"></script>
+    <script src="js/permissions.js?v=20260904131429"></script>
+    <script src="js/audit.js?v=20260904131429"></script>
+    <script src="js/machineDetail.js?v=20260904131429"></script>
+    <script src="js/app.js?v=20260904131429"></script>
 </body>
 </html>
-

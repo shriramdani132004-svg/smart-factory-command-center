@@ -1,9 +1,16 @@
-// app.js
-// Main application entry point - wires simulator -> state -> dashboard -> factory floor (Phase 5 + 6)
+﻿// app.js - consolidated, clean rewrite (fixes corrupted safeInit patch)
 
 let simulationInterval = null;
 const eventFeed = [];
 const MAX_FEED_ITEMS = 15;
+
+window.onerror = function (msg, url, line, col, err) {
+    console.error('GLOBAL ERROR:', msg, 'at', url + ':' + line + ':' + col, err);
+};
+
+function safeInit(name, fn) {
+    try { fn(); } catch (err) { console.error('Init step failed [' + name + ']:', err); }
+}
 
 function logEvent(text) {
     const time = new Date().toLocaleTimeString('en-GB');
@@ -33,6 +40,7 @@ function renderKPIs(state) {
 
 function renderEventFeed() {
     const feedEl = document.getElementById('event-feed');
+    if (!feedEl) return;
     feedEl.innerHTML = eventFeed.map(e => '<div class="feed-item">' + e + '</div>').join('');
 }
 
@@ -54,11 +62,17 @@ function onSimulationTick(machines) {
         const prevStatuses = machines.map(m => m._prevStatus);
         updateState(machines);
         detectEvents(prevStatuses, machines);
-        analyzeAllMachines(machines);
+        if (typeof analyzeAllMachines === 'function') analyzeAllMachines(machines);
         machines.forEach(m => { m._prevStatus = m.currentStatus; });
+
         renderKPIs(FactoryState);
         renderEventFeed();
-        renderFactoryFloor(FactoryState.machines);
+        if (typeof renderFactoryFloor === 'function') renderFactoryFloor(FactoryState.machines);
+        if (typeof updateOrderProgress === 'function') updateOrderProgress();
+        if (typeof renderOrdersPanel === 'function') renderOrdersPanel();
+        if (typeof currentDetailMachineId !== 'undefined' && currentDetailMachineId && typeof renderMachineDetail === 'function') {
+            renderMachineDetail(currentDetailMachineId);
+        }
     } catch (err) {
         console.error('onSimulationTick failed:', err);
     }
@@ -74,35 +88,51 @@ function randomizeSomeMachinesRunning(machines) {
     });
 }
 
-function safeInit(name, fn) {
-    try { fn(); } catch (err) { console.error('Init step failed: ' + name, err); }
-}
-
 function initApp() {
     console.log('Initializing app...');
-    MACHINES.forEach(initMachineData);
-    randomizeSomeMachinesRunning(MACHINES);
-    safeInit("initState(MACHINES);", () => initState(MACHINES););
 
-    logEvent('Factory simulation initialized with ' + MACHINES.length + ' machines');
-    renderKPIs(FactoryState);
-    renderEventFeed();
+    safeInit('machineData', () => {
+        MACHINES.forEach(initMachineData);
+        randomizeSomeMachinesRunning(MACHINES);
+        initState(MACHINES);
+    });
 
-    safeInit("initFactoryFloorControls(MACHINES);", () => initFactoryFloorControls(MACHINES););
-    safeInit("initMachineDetailControls();", () => initMachineDetailControls(););
-    safeInit("initAlertEngine();", () => initAlertEngine(););
-    safeInit("initIncidentEngine();", () => initIncidentEngine(););
-    safeInit("initAutomationEngine();", () => initAutomationEngine(););
-    safeInit("initOrderForm();", () => initOrderForm(););
-    renderOrdersPanel();
-    renderIncidentsPanel();
-    renderAlertsPanel();
-    renderFactoryFloor(MACHINES);
+    safeInit('eventFeedInit', () => {
+        logEvent('Factory simulation initialized with ' + MACHINES.length + ' machines');
+        renderKPIs(FactoryState);
+        renderEventFeed();
+    });
+
+    safeInit('factoryFloor', () => {
+        if (typeof initFactoryFloorControls === 'function') initFactoryFloorControls(MACHINES);
+        if (typeof renderFactoryFloor === 'function') renderFactoryFloor(MACHINES);
+    });
+
+    safeInit('machineDetailControls', () => {
+        if (typeof initMachineDetailControls === 'function') initMachineDetailControls();
+    });
+
+    safeInit('alertEngine', () => {
+        if (typeof initAlertEngine === 'function') initAlertEngine();
+        if (typeof renderAlertsPanel === 'function') renderAlertsPanel();
+    });
+
+    safeInit('incidentEngine', () => {
+        if (typeof initIncidentEngine === 'function') initIncidentEngine();
+        if (typeof renderIncidentsPanel === 'function') renderIncidentsPanel();
+    });
+
+    safeInit('automationEngine', () => {
+        if (typeof initAutomationEngine === 'function') initAutomationEngine();
+    });
+
+    safeInit('orderForm', () => {
+        if (typeof initOrderForm === 'function') initOrderForm();
+        if (typeof renderOrdersPanel === 'function') renderOrdersPanel();
+    });
 
     simulationInterval = startSimulation(MACHINES, onSimulationTick);
     console.log('Simulation started. Interval ID:', simulationInterval);
 }
 
 document.addEventListener('DOMContentLoaded', initApp);
-
-

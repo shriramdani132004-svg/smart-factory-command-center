@@ -1,5 +1,4 @@
-// production.js
-// Phase 12: Production Order Management
+﻿// production.js - Phase 12: Production Order Management (clean rewrite)
 
 const ORDER_STATES = ['CREATED', 'QUEUED', 'ASSIGNED', 'RUNNING', 'PAUSED', 'DELAYED', 'COMPLETED', 'CANCELLED'];
 let orderCounter = 4581;
@@ -33,13 +32,13 @@ function createOrder(product, quantity, priority, deadlineHours) {
     return order;
 }
 
-// Assign an order across the best available machines (bridges into Phase 13 allocation)
 function assignOrder(orderId) {
     const order = FactoryState.orders.find(o => o.orderId === orderId);
     if (!order || order.status !== 'QUEUED') return;
 
     const allocation = allocateMachinesForOrder(order);
-    renderAllocationDebug(order, allocation);
+    if (typeof renderAllocationDebug === 'function') renderAllocationDebug(order, allocation);
+
     if (allocation.length === 0) {
         order.status = 'DELAYED';
         logEvent(order.orderId + ' DELAYED: no compatible machines available');
@@ -64,7 +63,6 @@ function assignOrder(orderId) {
     renderOrdersPanel();
 }
 
-// Called each tick to progress running orders based on assigned machines' production
 function updateOrderProgress() {
     FactoryState.orders.forEach(order => {
         if (order.status !== 'RUNNING') return;
@@ -75,11 +73,9 @@ function updateOrderProgress() {
         if (activeCount === 0 && assigned.length > 0) {
             order.status = 'DELAYED';
             logEvent(order.orderId + ' DELAYED: all assigned machines stopped');
-            renderOrdersPanel();
             return;
         }
 
-        // Simulate incremental completion based on active machines
         const increment = activeCount * (Math.random() * 3 + 1);
         order.completedQuantity = Math.min(order.quantity, order.completedQuantity + increment);
         order.remainingQuantity = order.quantity - order.completedQuantity;
@@ -90,7 +86,6 @@ function updateOrderProgress() {
             order.completedQuantity = order.quantity;
             order.remainingQuantity = 0;
             logEvent(order.orderId + ' COMPLETED (' + order.quantity + ' units)');
-
             assigned.forEach(m => { m.currentOrder = null; });
         } else {
             const remainingRate = activeCount > 0 ? increment : 0.01;
@@ -155,7 +150,7 @@ function renderOrdersPanel() {
 
 function initOrderForm() {
     const btn = document.getElementById('order-create-btn');
-    if (!btn) { console.error('initOrderForm: order-create-btn not found in DOM, skipping wire-up'); return; }
+    if (!btn) { console.error('initOrderForm: order-create-btn not found in DOM'); return; }
     btn.addEventListener('click', () => {
         const product = document.getElementById('order-product').value || 'P-100';
         const qty = parseInt(document.getElementById('order-qty').value) || 1000;
@@ -168,4 +163,3 @@ function initOrderForm() {
 if (typeof module !== "undefined") {
     module.exports = { createOrder, assignOrder, updateOrderProgress, cancelOrder, renderOrdersPanel, initOrderForm };
 }
-
