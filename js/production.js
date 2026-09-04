@@ -1,4 +1,4 @@
-﻿// production.js
+// production.js
 // Phase 12: Production Order Management
 
 const ORDER_STATES = ['CREATED', 'QUEUED', 'ASSIGNED', 'RUNNING', 'PAUSED', 'DELAYED', 'COMPLETED', 'CANCELLED'];
@@ -39,6 +39,7 @@ function assignOrder(orderId) {
     if (!order || order.status !== 'QUEUED') return;
 
     const allocation = allocateMachinesForOrder(order);
+    renderAllocationDebug(order, allocation);
     if (allocation.length === 0) {
         order.status = 'DELAYED';
         logEvent(order.orderId + ' DELAYED: no compatible machines available');

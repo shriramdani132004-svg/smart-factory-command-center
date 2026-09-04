@@ -396,3 +396,23 @@ body {
 }
 .assign-btn:hover { background: #238636; }
 .cancel-btn:hover { background: #da3633; }
+
+.allocation-panel {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 2rem;
+}
+.allocation-panel h2 { font-size: 1.1rem; margin-bottom: 0.8rem; }
+.allocation-debug { font-size: 0.82rem; }
+.alloc-title { color: #8b949e; margin-bottom: 0.5rem; font-size: 0.78rem; text-transform: uppercase; }
+.alloc-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.35rem 0.6rem;
+    background: #0d1117;
+    border-radius: 5px;
+    margin-bottom: 0.35rem;
+}
+.alloc-score { color: #3fb950; font-weight: bold; }
