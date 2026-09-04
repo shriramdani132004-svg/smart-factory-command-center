@@ -1,6 +1,7 @@
-﻿// app.js - consolidated, clean rewrite (fixes corrupted safeInit patch)
+﻿// app.js - consolidated (Phase 5-14)
 
 let simulationInterval = null;
+let tickCount = 0;
 const eventFeed = [];
 const MAX_FEED_ITEMS = 15;
 
@@ -59,11 +60,20 @@ function detectEvents(prevStatuses, newMachines) {
 
 function onSimulationTick(machines) {
     try {
+        tickCount++;
         const prevStatuses = machines.map(m => m._prevStatus);
         updateState(machines);
         detectEvents(prevStatuses, machines);
         if (typeof analyzeAllMachines === 'function') analyzeAllMachines(machines);
         machines.forEach(m => { m._prevStatus = m.currentStatus; });
+
+        if (typeof recordSensorHistory === 'function') {
+            machines.forEach(m => recordSensorHistory(m));
+        }
+        if (tickCount % 5 === 0 && typeof runPredictiveAnalysis === 'function') {
+            runPredictiveAnalysis(machines);
+            if (typeof renderPredictivePanel === 'function') renderPredictivePanel(machines);
+        }
 
         renderKPIs(FactoryState);
         renderEventFeed();
@@ -129,6 +139,10 @@ function initApp() {
     safeInit('orderForm', () => {
         if (typeof initOrderForm === 'function') initOrderForm();
         if (typeof renderOrdersPanel === 'function') renderOrdersPanel();
+    });
+
+    safeInit('predictiveInit', () => {
+        if (typeof renderPredictivePanel === 'function') renderPredictivePanel(MACHINES);
     });
 
     simulationInterval = startSimulation(MACHINES, onSimulationTick);

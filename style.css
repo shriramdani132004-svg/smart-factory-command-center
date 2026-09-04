@@ -416,3 +416,32 @@ body {
     margin-bottom: 0.35rem;
 }
 .alloc-score { color: #3fb950; font-weight: bold; }
+
+.predictive-panel {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 2rem;
+}
+.predictive-panel h2 { font-size: 1.1rem; margin-bottom: 0.8rem; }
+.predictive-list { max-height: 320px; overflow-y: auto; }
+.predict-item {
+    border-left: 4px solid #8b949e;
+    background: #0d1117;
+    border-radius: 6px;
+    padding: 0.6rem 0.8rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    gap: 0.8rem;
+    align-items: center;
+    flex-wrap: wrap;
+    font-size: 0.8rem;
+}
+.predict-item.risk-critical { border-left-color: #f85149; }
+.predict-item.risk-high { border-left-color: #f0883e; }
+.predict-item.risk-medium { border-left-color: #d29922; }
+.predict-item.risk-low { border-left-color: #3fb950; }
+.predict-id { font-weight: bold; color: #58a6ff; min-width: 50px; }
+.predict-metric { color: #c9d1d9; }
+.predict-rec { color: #8b949e; font-style: italic; margin-left: auto; }
