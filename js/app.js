@@ -12,19 +12,23 @@ function logEvent(text) {
 }
 
 function renderKPIs(state) {
-    const k = state.kpis;
-    document.getElementById('kpi-total').textContent = k.totalMachines;
-    document.getElementById('kpi-running').textContent = k.running;
-    document.getElementById('kpi-idle').textContent = k.idle;
-    document.getElementById('kpi-fault').textContent = k.fault;
-    document.getElementById('kpi-offline').textContent = k.offline;
-    document.getElementById('kpi-alerts').textContent = k.activeAlerts;
-    document.getElementById('kpi-production').textContent = k.productionToday.toLocaleString();
-    document.getElementById('kpi-rate').textContent = k.productionRate;
-    document.getElementById('kpi-efficiency').textContent = k.efficiency + '%';
-    document.getElementById('kpi-energy').textContent = k.energyConsumption + ' kWh';
-    document.getElementById('kpi-orders').textContent = k.activeOrders;
-    document.getElementById('last-update').textContent = 'Last Update: ' + state.lastUpdate.toLocaleTimeString('en-GB');
+    try {
+        const k = state.kpis;
+        document.getElementById('kpi-total').textContent = k.totalMachines;
+        document.getElementById('kpi-running').textContent = k.running;
+        document.getElementById('kpi-idle').textContent = k.idle;
+        document.getElementById('kpi-fault').textContent = k.fault;
+        document.getElementById('kpi-offline').textContent = k.offline;
+        document.getElementById('kpi-alerts').textContent = k.activeAlerts;
+        document.getElementById('kpi-production').textContent = k.productionToday.toLocaleString();
+        document.getElementById('kpi-rate').textContent = k.productionRate;
+        document.getElementById('kpi-efficiency').textContent = k.efficiency + '%';
+        document.getElementById('kpi-energy').textContent = k.energyConsumption + ' kWh';
+        document.getElementById('kpi-orders').textContent = k.activeOrders;
+        document.getElementById('last-update').textContent = 'Last Update: ' + state.lastUpdate.toLocaleTimeString('en-GB');
+    } catch (err) {
+        console.error('renderKPIs failed:', err);
+    }
 }
 
 function renderEventFeed() {
@@ -32,25 +36,31 @@ function renderEventFeed() {
     feedEl.innerHTML = eventFeed.map(e => '<div class="feed-item">' + e + '</div>').join('');
 }
 
-function detectEvents(prevMachines, newMachines) {
+function detectEvents(prevStatuses, newMachines) {
     newMachines.forEach((m, i) => {
-        const prev = prevMachines[i];
-        if (!prev) return;
-        if (prev.currentStatus !== m.currentStatus) {
-            logEvent(m.machineId + ' status changed: ' + prev.currentStatus + ' -> ' + m.currentStatus);
+        const prevStatus = prevStatuses[i];
+        if (prevStatus === undefined) return;
+        if (prevStatus !== m.currentStatus) {
+            logEvent(m.machineId + ' status changed: ' + prevStatus + ' -> ' + m.currentStatus);
         }
-        if (m.currentStatus === 'FAULT' && prev.currentStatus !== 'FAULT') {
+        if (m.currentStatus === 'FAULT' && prevStatus !== 'FAULT') {
             logEvent(m.machineId + ' CRITICAL: fault detected');
         }
     });
 }
 
 function onSimulationTick(machines) {
-    const prevSnapshot = FactoryState.machines.map(m => ({ machineId: m.machineId, currentStatus: m.currentStatus }));
-    updateState(machines);
-    detectEvents(prevSnapshot, machines);
-    renderKPIs(FactoryState);
-    renderEventFeed();
+    try {
+        const prevStatuses = machines.map(m => m._prevStatus);
+        updateState(machines);
+        detectEvents(prevStatuses, machines);
+        machines.forEach(m => { m._prevStatus = m.currentStatus; });
+        renderKPIs(FactoryState);
+        renderEventFeed();
+        console.log('Tick @', new Date().toLocaleTimeString(), '- Production:', FactoryState.kpis.productionToday);
+    } catch (err) {
+        console.error('onSimulationTick failed:', err);
+    }
 }
 
 function randomizeSomeMachinesRunning(machines) {
@@ -59,11 +69,12 @@ function randomizeSomeMachinesRunning(machines) {
         if (r < 0.8) m.currentStatus = 'RUNNING';
         else if (r < 0.9) m.currentStatus = 'IDLE';
         else m.currentStatus = 'STOPPED';
+        m._prevStatus = m.currentStatus;
     });
 }
 
 function initApp() {
-    initMachineData; // ensure loaded
+    console.log('Initializing app...');
     MACHINES.forEach(initMachineData);
     randomizeSomeMachinesRunning(MACHINES);
     initState(MACHINES);
@@ -73,6 +84,7 @@ function initApp() {
     renderEventFeed();
 
     simulationInterval = startSimulation(MACHINES, onSimulationTick);
+    console.log('Simulation started. Interval ID:', simulationInterval);
 }
 
 document.addEventListener('DOMContentLoaded', initApp);
