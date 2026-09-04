@@ -278,3 +278,51 @@ body {
 .resolve-btn:hover { background: #238636; }
 .ack-btn:hover { background: #1f6feb; }
 .ack-tag { font-size: 0.7rem; color: #8b949e; padding: 0.3rem; }
+
+.incidents-panel {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 2rem;
+}
+.incidents-panel h2 { font-size: 1.1rem; margin-bottom: 0.8rem; }
+.incidents-list { max-height: 320px; overflow-y: auto; }
+.incident-item {
+    border-left: 4px solid #8b949e;
+    background: #0d1117;
+    border-radius: 6px;
+    padding: 0.6rem 0.8rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+}
+.incident-item.sev-critical { border-left-color: #f85149; }
+.incident-item.sev-warning { border-left-color: #d29922; }
+.incident-item.sev-emergency { border-left-color: #da3633; }
+.incident-main { display: flex; gap: 0.7rem; align-items: center; font-size: 0.82rem; flex-wrap: wrap; }
+.incident-id { font-weight: bold; color: #58a6ff; }
+.incident-status {
+    font-size: 0.7rem;
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    background: #21262d;
+    text-transform: uppercase;
+}
+.incident-cause { color: #c9d1d9; }
+.incident-time { color: #8b949e; font-size: 0.75rem; }
+.incident-user { color: #3fb950; font-size: 0.75rem; }
+.incident-btn {
+    background: #21262d;
+    border: 1px solid #30363d;
+    color: #e6edf3;
+    padding: 0.35rem 0.7rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.72rem;
+    font-weight: bold;
+}
+.incident-btn:hover { background: #1f6feb; }
